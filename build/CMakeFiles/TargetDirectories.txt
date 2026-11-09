@@ -1,0 +1,3 @@
+/home/cll/CLL/Projects/ArtProj/build/CMakeFiles/ArtProj.dir
+/home/cll/CLL/Projects/ArtProj/build/CMakeFiles/edit_cache.dir
+/home/cll/CLL/Projects/ArtProj/build/CMakeFiles/rebuild_cache.dir

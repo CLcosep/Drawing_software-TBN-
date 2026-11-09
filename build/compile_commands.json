@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/cll/CLL/Projects/ArtProj/build",
+  "command": "/usr/bin/g++ -I/home/cll/CLL/Projects/ArtProj/include -g -o CMakeFiles/ArtProj.dir/src/main.cpp.o -c /home/cll/CLL/Projects/ArtProj/src/main.cpp",
+  "file": "/home/cll/CLL/Projects/ArtProj/src/main.cpp",
+  "output": "/home/cll/CLL/Projects/ArtProj/build/CMakeFiles/ArtProj.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/cll/CLL/Projects/ArtProj/build",
+  "command": "/usr/bin/gcc -I/home/cll/CLL/Projects/ArtProj/include -g -o CMakeFiles/ArtProj.dir/src/glad.c.o -c /home/cll/CLL/Projects/ArtProj/src/glad.c",
+  "file": "/home/cll/CLL/Projects/ArtProj/src/glad.c",
+  "output": "/home/cll/CLL/Projects/ArtProj/build/CMakeFiles/ArtProj.dir/src/glad.c.o"
+}
+]
