@@ -119,41 +119,87 @@ int main() {
     glDeleteProgram(fragmentShader);
 
     // setup vertex data and config vertex attributes
-    float vertices[] = {
-        0.5f, 0.5f, 0.0f,     //top right
-         0.5f, -0.5f, 0.0f,     //bottom right
-        -0.5f, -0.5f, 0.0f,     //bottom left
-        -0.5f, 0.5f,  0.0f      //top left
-    };
-    unsigned int indices[] = {
-        0, 1, 3, //first triangle
-        1, 2, 3 // second triangle
-    };
+    // float vertices[] = {
+    //     // 0.0f, 0.433f, 0.0f,     //top right
+    //     //  0.5f, -0.433f, 0.0f,     //bottom right
+    //     // -0.5f, -0.433f, 0.0f,     //bottom left
+    //     // 0.0f, -0.433f,  0.0f      //top left
 
+    //      -0.9f, -0.5f, 0.0f,  // left 
+    //     -0.0f, -0.5f, 0.0f,  // right
+    //     -0.45f, 0.5f, 0.0f,  // top 
+    //     // second triangle
+    //      0.0f, -0.5f, 0.0f,  // left
+    //      0.9f, -0.5f, 0.0f,  // right
+    //      0.45f, 0.5f, 0.0f
+    // };
+    // unsigned int indices[] = {
+    //     0, 2, 3, //first triangle
+    //     0, 3, 1 // second triangle
+    // };
+
+    float squareVertices[] = {
+        0.8f, 0.5f, 0.0f,    //topright
+        0.8f, -0.5f, 0.0f,   //bottom right
+        0.2f, -0.5f, 0.0f,  //bottom left
+        0.2f, 0.5f, 0.0f    //topleft
+    };
+    unsigned int squareIndices[] = {
+        0, 1, 3, //firt tria
+        1, 2, 3  //second tria
+    };  
+
+    float triangleVertices[] = {
+        -0.2f, -0.5f, 0.0f, //bottom right
+        -0.8f, -0.5f, 0.0f, //bottom left
+        -0.5f, 0.5f, 0.0f   //top
+    };
     // vertex buffer object
-    unsigned int VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    // unsigned int VBO, VAO, EBO;
+    // glGenVertexArrays(1, &VAO);
+    // glGenBuffers(1, &VBO);
+    // glGenBuffers(1, &EBO);
+    // // bind vertex array object (VAO) first then bind vertex buffer then confiugre vertex attributes
+    // glBindVertexArray(VAO);
+    
+    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glEnableVertexAttribArray(0);
+
+    // glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // glBindVertexArray(0);
+
+    unsigned int VBO[2], VAO[2], EBO;
+    glGenVertexArrays(1, &VAO[0]);
+    glGenBuffers(1, &VBO[0]);
     glGenBuffers(1, &EBO);
-    // bind vertex array object (VAO) first then bind vertex buffer then confiugre vertex attributes
-    glBindVertexArray(VAO);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
+    glBindVertexArray(VAO[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(squareIndices), squareIndices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glGenVertexArrays(1, &VAO[1]);
+    glGenBuffers(1, &VBO[1]);
+    glBindVertexArray(VAO[1]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
-    glBindVertexArray(0);
+
 
 
     // wirframe polygon
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // render loop
     while (!glfwWindowShouldClose(window)) {
@@ -165,12 +211,18 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);   //state-setting
         glClear(GL_COLOR_BUFFER_BIT);           //state-using
 
-        // draw first triangle
-        // objcall
+        // // draw first triangle
+        // glUseProgram(shaderProgram);
+        // glBindVertexArray(VAO);
+        // glDrawArrays(GL_TRIANGLES, 0, 6);
+        // // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
         glUseProgram(shaderProgram);
-        glBindVertexArray(VAO);
-        // glDrawArrays(GL_TRIANGLES, 6, 3);
+        glBindVertexArray(VAO[0]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(VAO[1]);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // check events and swap buffers
         glfwSwapBuffers(window);
@@ -178,9 +230,17 @@ int main() {
     }
 
     // deallocate after 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    // glDeleteVertexArrays(1, &VAO);
+    // glDeleteBuffers(1, &VBO);
+    // glDeleteBuffers(1, &EBO);
+    // glDeleteProgram(shaderProgram);
+
+    glDeleteVertexArrays(1, &VAO[0]);
+    glDeleteBuffers(1, &VBO[0]);
     glDeleteBuffers(1, &EBO);
+
+    glDeleteVertexArrays(1, &VAO[1]);
+    glDeleteBuffers(1, &VBO[1]);
     glDeleteProgram(shaderProgram);
 
     glfwTerminate();
@@ -191,7 +251,23 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
+bool wireframe = false;
+bool PKeyPress = false;
+
 void processInput(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    // if(glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+    //     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    // else 
+    //     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    bool pDown = glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS;
+    
+    if (pDown && !PKeyPress) {
+        wireframe = !wireframe;
+        glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+    }
+    PKeyPress = pDown;
 }
